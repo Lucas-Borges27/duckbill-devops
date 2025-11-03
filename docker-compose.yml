@@ -9,6 +9,6 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: "prod"
       # caso use Oracle DB externo:
-      SPRING_DATASOURCE_URL: "jdbc:oracle:thin:@seu_tns_alias"
-      SPRING_DATASOURCE_USERNAME: "usuario"
-      SPRING_DATASOURCE_PASSWORD: "senha"
+      SPRING_DATASOURCE_URL: "jdbc:oracle:thin:@//oracle.fiap.com.br:1521/orcl"
+      SPRING_DATASOURCE_USERNAME: "rm560027"
+      SPRING_DATASOURCE_PASSWORD: "270304"
