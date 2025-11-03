@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  duckbill-api:
+    build: .
+    container_name: duckbill-api
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      # caso use Oracle DB externo:
+      SPRING_DATASOURCE_URL: "jdbc:oracle:thin:@seu_tns_alias"
+      SPRING_DATASOURCE_USERNAME: "usuario"
+      SPRING_DATASOURCE_PASSWORD: "senha"
