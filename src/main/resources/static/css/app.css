@@ -1,0 +1,151 @@
+:root {
+  --bg: #f7f4ef;
+  --ink: #1f1d1a;
+  --accent: #0b6e4f;
+  --accent-2: #f4b860;
+  --card: #ffffff;
+  --muted: #6b655f;
+  --danger: #b00020;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  color: var(--ink);
+  background: radial-gradient(1200px 600px at 20% -10%, #e8f3e7 0%, transparent 60%),
+              radial-gradient(900px 500px at 120% 10%, #f7e6d2 0%, transparent 55%),
+              var(--bg);
+}
+
+header {
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-family: "DM Serif Display", serif;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 32px 48px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid #ece6dd;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(20, 20, 20, 0.06);
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+.btn {
+  background: var(--accent);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: #2f2a25;
+}
+
+.btn-danger {
+  background: var(--danger);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d7d0c7;
+  border-radius: 10px;
+  background: #fff;
+}
+
+label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.form-row {
+  display: grid;
+  gap: 12px;
+}
+
+.hint { color: var(--muted); font-size: 13px; }
+.success { color: var(--accent); }
+.error { color: var(--danger); }
+
+.pill {
+  display: inline-block;
+  background: #f3efe8;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.top3-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #e7e0d6;
+  padding: 6px 0;
+}
+
+.nav a {
+  margin-right: 12px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+.nav form {
+  display: inline;
+}
+
+.nav button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 8px;
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.nav button:hover {
+  text-decoration: underline;
+}
+
+.login-wrap {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+}
+
+.login-card {
+  max-width: 420px;
+  width: 100%;
+}

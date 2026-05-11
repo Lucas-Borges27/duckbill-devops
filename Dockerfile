@@ -1,31 +1,20 @@
-# -----------------------------
-# 1 — Build da aplicação (DevOps)
-# -----------------------------
-FROM eclipse-temurin:17-jdk-jammy AS build
+FROM maven:3.9.9-eclipse-temurin-17 AS builder
 
 WORKDIR /app
 
-# Instala Git e Maven
-RUN apt-get update && apt-get install -y git maven
+COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw mvnw
+COPY src src
 
-# Clona o repositório do código-fonte (Java)
-RUN git clone https://github.com/Lucas-Borges27/duckBill-Java.git .
+RUN chmod +x mvnw && ./mvnw -q -DskipTests package
 
-# Compila o projeto com Maven
-RUN mvn clean package -DskipTests
+FROM eclipse-temurin:17-jre
 
-# -----------------------------
-# 2 — Runtime leve e seguro
-# -----------------------------
-FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
-# Copia o jar gerado do estágio anterior
-COPY --from=build /app/target/*.jar app.jar
-
-# Cria usuário não-root (boa prática)
-RUN useradd -ms /bin/bash appuser
-USER appuser
+COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

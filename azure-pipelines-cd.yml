@@ -1,0 +1,49 @@
+trigger: none
+
+resources:
+  pipelines:
+    - pipeline: Duckbill-CI
+      source: Duckbill-CI
+      branch: main
+      trigger:
+        branches:
+          include:
+            - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: duckbill-secrets
+
+stages:
+  - stage: CD_Desenvolvimento
+    displayName: Deploy - Desenvolvimento
+    jobs:
+      - deployment: Deploy_Azure_App_Service
+        displayName: Deploy no Azure App Service
+        environment: Desenvolvimento
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: Duckbill-CI
+                  artifact: duckbill-app
+                  displayName: Download artifact duckbill-app
+
+                - task: AzureWebApp@1
+                  displayName: Deploy no Azure App Service (Java 17)
+                  inputs:
+                    azureSubscription: $(AZURE_SUBSCRIPTION)
+                    appName: $(AZURE_WEBAPP_NAME)
+                    appType: webAppLinux
+                    runtimeStack: JAVA|17-java17
+                    package: $(Pipeline.Workspace)/Duckbill-CI/duckbill-app/duckbill-*.jar
+                    appSettings: |
+                      -DATASOURCE_URL $(DATASOURCE_URL)
+                      -DATASOURCE_USERNAME $(DATASOURCE_USERNAME)
+                      -DATASOURCE_PASSWORD $(DATASOURCE_PASSWORD)
+                      -JWT_SECRET $(JWT_SECRET)
+                      -JWT_EXPIRATION_MS $(JWT_EXPIRATION_MS)
+                      -APP_CORS_ALLOWED_ORIGINS $(APP_CORS_ALLOWED_ORIGINS)
+                      -SPRING_PROFILES_ACTIVE production

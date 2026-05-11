@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DuckBill | Acesso negado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header>
+    <div class="brand">DuckBill</div>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2>Acesso negado</h2>
+        <p class="error">Seu perfil não possui permissão para acessar esta página.</p>
+        <a class="btn" th:href="@{/app/dashboard}">Voltar ao dashboard</a>
+    </div>
+</div>
+</body>
+</html>

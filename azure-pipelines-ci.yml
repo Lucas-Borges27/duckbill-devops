@@ -1,0 +1,63 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+  MAVEN_OPTS: -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)
+
+steps:
+  - task: Cache@2
+    displayName: Cache Maven dependencies
+    inputs:
+      key: 'maven | "$(Agent.OS)" | pom.xml'
+      restoreKeys: |
+        maven | "$(Agent.OS)"
+        maven
+      path: $(MAVEN_CACHE_FOLDER)
+
+  - task: JavaToolInstaller@0
+    displayName: Use Java 17
+    inputs:
+      versionSpec: '17'
+      jdkArchitectureOption: x64
+      jdkSourceOption: PreInstalled
+
+  - task: Maven@4
+    displayName: Build - mvn package
+    inputs:
+      mavenPomFile: pom.xml
+      goals: package
+      options: '-DskipTests $(MAVEN_OPTS)'
+      publishJUnitResults: false
+      javaHomeOption: JDKVersion
+      jdkVersionOption: '1.17'
+
+  - task: Maven@4
+    displayName: Test - mvn test
+    inputs:
+      mavenPomFile: pom.xml
+      goals: test
+      options: '$(MAVEN_OPTS)'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      javaHomeOption: JDKVersion
+      jdkVersionOption: '1.17'
+
+  - task: CopyFiles@2
+    displayName: Copy JAR to staging
+    inputs:
+      sourceFolder: target
+      contents: 'duckbill-*.jar'
+      targetFolder: $(Build.ArtifactStagingDirectory)
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish artifact duckbill-app
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: duckbill-app
+      publishLocation: Container
