@@ -1,14 +1,36 @@
-# Duck Bill
+# Duck Bill — DevOps Sprint 4
 
-Aplicação Spring Boot para controle de despesas pessoais, metas de poupança, tarefas com alertas temporais e investimentos, com frontend Thymeleaf, Spring Security e Flyway.
+Este repositório é a entrega da **Sprint 4 — DevOps Tools & Cloud Computing (FIAP)** do projeto Duckbill.
+
+**Duckbill** é uma aplicação Spring Boot para controle de finanças pessoais: despesas, metas de poupança, tarefas com alertas temporais e investimentos em ativos, com frontend Thymeleaf, Spring Security e Flyway.
+
+Contém o código-fonte da aplicação Spring Boot **e** toda a infraestrutura de CI/CD configurada para Azure DevOps, incluindo os arquivos de pipeline, documentação técnica e diagramas.
+
+## O que tem neste repositório
+
+| Arquivo / Pasta | Descrição |
+|---|---|
+| `azure-pipelines-ci.yml` | Pipeline de Integração Contínua: build Maven, cache de dependências, testes JUnit e publicação do artefato `.jar` |
+| `azure-pipelines-cd.yml` | Pipeline de Entrega Contínua: download do artefato e deploy automático no Azure App Service (Java 17 Linux) |
+| `docs/descricao-solucao.md` | Descrição completa da solução, tabelas do banco e endpoints da API |
+| `docs/pipeline-diagram.md` | Diagrama Mermaid do fluxo CI/CD e tabela de etapas |
+| `src/` | Código-fonte Spring Boot (Java 17) |
+| `pom.xml` | Configuração Maven do projeto |
+| `Dockerfile` | Imagem Docker multi-stage para execução local |
+| `docs/postman/` | Coleções Postman para teste dos endpoints |
+
+## Repositório original da aplicação
+
+O desenvolvimento principal da aplicação Java está no repositório:
+
+> **[https://github.com/Lucas-Borges27/duckbill-JAVA](https://github.com/Lucas-Borges27/duckbill-JAVA)**
+
+Este repo (`duckbill-devops`) é uma cópia do código com a infraestrutura DevOps adicionada, entregue separadamente para a disciplina de DevOps Tools & Cloud Computing.
 
 ## Integrantes
 - Bruno Carlos Soares RM 559250 - Responsável pelos testes funcionais e validação dos endpoints.
 - Lucas Borges de Souza RM 560027 - Desenvolvimento completo da aplicação Spring Boot, controllers e serviços.
 - Pedro Henrique Rodrigues RM 560393 - Criação da documentação, diagramas e README do projeto.
-
-## Repositório
-- GitHub: `https://github.com/Lucas-Borges27/duckbill-JAVA`
 
 ## Pré-requisitos
 - Java 17+
